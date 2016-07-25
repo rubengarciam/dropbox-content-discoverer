@@ -2,9 +2,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
-//import DuckImage from './Duck.jpg'
+// import DuckImage from './Duck.jpg'
 import HackWeekImage from './hackweek.png'
-//import classes from './HomeView.scss'
+// import classes from './HomeView.scss'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -39,8 +39,8 @@ export class HomeView extends React.Component<void, Props, void> {
         <h1>Dropbox Content Discoverer</h1>
 
         <div className="ui centered cards">
-        <div className="ui card">
-          <div className="image">
+          <div className="ui card">
+            <div className="image">
               <img src={HackWeekImage} />
             </div>
             <div className="content">
@@ -58,8 +58,8 @@ export class HomeView extends React.Component<void, Props, void> {
                 7 Dropboxers working
               </a>
             </div>
-         </div>
           </div>
+        </div>
       </div>
     )
   }
