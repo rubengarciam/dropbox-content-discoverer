@@ -2,9 +2,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
-import DuckImage from './Duck.jpg'
+//import DuckImage from './Duck.jpg'
 import HackWeekImage from './hackweek.png'
-import classes from './HomeView.scss'
+//import classes from './HomeView.scss'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
