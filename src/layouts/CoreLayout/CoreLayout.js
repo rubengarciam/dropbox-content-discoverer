@@ -14,7 +14,15 @@ function CoreLayout ({ children }) {
   return (
     <div className='page-container'>
       <div className='view-container'>
-        {children}
+        <div className="ui sidebar visible vertical menu">
+          <h3>Filters</h3>
+          <a className="item">1</a>
+          <a className="item">2</a>
+          <a className="item">3</a>
+        </div>
+        <div className="pusher">
+              {children}
+        </div>
       </div>
     </div>
   )

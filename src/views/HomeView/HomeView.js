@@ -2,9 +2,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
-//import DuckImage from './Duck.jpg'
 import HackWeekImage from './hackweek.png'
-//import classes from './HomeView.scss'
+/* import DuckImage from './Duck.jpg'
+import classes from './HomeView.scss' */
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -36,11 +36,9 @@ export class HomeView extends React.Component<void, Props, void> {
   render () {
     return (
       <div className='container text-center'>
-        <h1>Dropbox Content Discoverer</h1>
-
         <div className="ui centered cards">
-        <div className="ui card">
-          <div className="image">
+          <div className="ui card">
+            <div className="image">
               <img src={HackWeekImage} />
             </div>
             <div className="content">
@@ -55,10 +53,58 @@ export class HomeView extends React.Component<void, Props, void> {
             <div className="extra content">
               <a>
                 <i className="user icon"></i>
-                7 Dropboxers working
+                5 Dropboxers working
               </a>
             </div>
-         </div>
+          </div>
+        </div>
+          <div className="ui icon input">
+            <input type="text" placeholder="Presentations shared by @ruben in the last week..." />
+            <i className="search icon"></i>
+          </div>
+          <div className="ui feed">
+            <div className="event">
+              <div className="label">
+                <i className="file powerpoint outline icon"></i>
+              </div>
+              <div className="content">
+                  <div className="summary">
+                  <span className="file">File 1.ppt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
+                </div>
+                <div className="date">
+                  3 days ago
+                </div>
+              </div>
+              <div className="ui right floated primary button">Open</div>
+            </div>
+            <div className="event">
+              <div className="label">
+                <i className="file text outline icon"></i>
+              </div>
+              <div className="content">
+                  <div className="summary">
+                  <span className="file">File 1.txt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
+                </div>
+                <div className="date">
+                  3 days ago
+                </div>
+              </div>
+              <div className="ui right floated primary button">Open</div>
+            </div>
+            <div className="event">
+              <div className="label">
+                <i className="file pdf outline icon"></i>
+              </div>
+              <div className="content">
+                  <div className="summary">
+                  <span className="file">File 1.pdf</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
+                </div>
+                <div className="date">
+                  3 days ago
+                </div>
+              </div>
+              <div className="ui right floated primary button">Open</div>
+            </div>
           </div>
       </div>
     )

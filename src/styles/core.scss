@@ -20,4 +20,34 @@
   *:after {
     box-sizing: inherit;
   }
+  .ui.sidebar.vertical.menu{
+    background-color: #f6f8fa;
+    width: 240px;
+  }
+  .container{
+    padding-top: 50px;
+    width: 600px;
+  }
+  .ui.input{
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    width: 600px;
+  }
+  .ui.feed > .event > .content{
+    .summary{
+      font-weight: normal;
+      .file{
+        font-weight: bold;
+        margin-right: 10px;
+      }
+    }
+    .date {
+      color: rgb(193,193,193);
+      font-weight: 100;
+      margin: 5px 0;
+    }
+  }
+  .ui.feed > .event > .button{
+    height: 40px;
+  }
 }
