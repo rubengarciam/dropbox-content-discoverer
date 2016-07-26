@@ -48,10 +48,10 @@ export class HomeView extends React.Component<void, Props, void> {
               </div>
               <div className="content">
                   <div className="summary">
-                  <span className="file">File 1.ppt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
-                </div>
-                <div className="date">
-                  3 days ago
+                  <span className="file">File 1.ppt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder
+                    <div className="date">
+                      3 days ago
+                    </div>
                 </div>
               </div>
               <div className="ui right floated primary button">Open</div>
@@ -62,10 +62,10 @@ export class HomeView extends React.Component<void, Props, void> {
               </div>
               <div className="content">
                   <div className="summary">
-                  <span className="file">File 1.txt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
-                </div>
-                <div className="date">
-                  3 days ago
+                  <span className="file">File 1.txt</span> Created by <a>you</a> in the <a>hackweek 2016</a> shared folder
+                    <div className="date">
+                      2 weeks ago
+                    </div>
                 </div>
               </div>
               <div className="ui right floated primary button">Open</div>
@@ -76,10 +76,10 @@ export class HomeView extends React.Component<void, Props, void> {
               </div>
               <div className="content">
                   <div className="summary">
-                  <span className="file">File 1.pdf</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder.
-                </div>
-                <div className="date">
-                  3 days ago
+                  <span className="file">File 1.pdf</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder
+                    <div className="date">
+                      3 days ago
+                    </div>
                 </div>
               </div>
               <div className="ui right floated primary button">Open</div>

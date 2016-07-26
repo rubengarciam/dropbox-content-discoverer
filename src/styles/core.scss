@@ -38,12 +38,15 @@
   }
   .container{
     padding-top: 70px;
-    width: 600px;
+    width: 700px;
   }
   .ui.input{
     margin-top: 15rem;
     margin-bottom: 10rem;
     width: 600px;
+  }
+  .ui.feed > .event {
+    margin-bottom: 20px;
   }
   .ui.feed > .event > .content{
     .summary{
@@ -56,11 +59,15 @@
     .date {
       color: rgb(193,193,193);
       font-weight: 100;
-      margin: 5px 0;
+      left: 10px;
     }
   }
   .ui.feed > .event > .button{
-    height: 37px;
+    height: 36px;
+  }
+  .ui.feed > .event > .label .icon{
+    font-size: 2em;
+    color: rgb(168,167,167)
   }
   .ui.footer {
     position: absolute;
