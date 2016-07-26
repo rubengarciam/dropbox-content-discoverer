@@ -37,8 +37,6 @@ export class HomeView extends React.Component<void, Props, void> {
   render () {
     let nlp = require('nlp_compromise')
     var input = nlp_compromise.sentence('Presentations created in the last 3 weeks, sent from Daniel from Sydney')
-
-    var html = "<b>Find me presentations created in the last 3 weeks, sent from Daniel from Sydney</b> <br/>"
     var people = input.people()[0].text
     var date = input.dates()[0].text
     var place = input.places()[0].text
