@@ -20,4 +20,60 @@
   *:after {
     box-sizing: inherit;
   }
+  .ui.sidebar.vertical.menu{
+    background-color: #f6f8fa;
+    width: 240px;
+    border: 0px;
+    padding: 60px 20px;
+    .logo {
+      width: 70px;
+      margin-left: -15px;
+    }
+    h3{
+      font-weight: 100;
+      color: #647f94;
+      font-size: 1.1rem;
+      //text-transform: uppercase;
+    }
+  }
+  .container{
+    padding-top: 70px;
+    width: 700px;
+  }
+  .ui.input{
+    margin-top: 15rem;
+    margin-bottom: 10rem;
+    width: 600px;
+  }
+  .ui.feed > .event {
+    margin-bottom: 20px;
+  }
+  .ui.feed > .event > .content{
+    .summary{
+      font-weight: normal;
+      .file{
+        font-weight: bold;
+        margin-right: 10px;
+      }
+    }
+    .date {
+      color: rgb(193,193,193);
+      font-weight: 100;
+      left: 10px;
+    }
+  }
+  .ui.feed > .event > .button{
+    height: 36px;
+  }
+  .ui.feed > .event > .label .icon{
+    font-size: 2em;
+    color: rgb(168,167,167)
+  }
+  .ui.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: .8rem;
+    color: rgb(207,207,207);
+  }
 }
