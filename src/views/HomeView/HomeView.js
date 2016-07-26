@@ -37,27 +37,6 @@ export class HomeView extends React.Component<void, Props, void> {
   render () {
     return (
       <div className='container text-center'>
-        <div className="ui centered cards">
-          <div className="ui card">
-            <div className="image">
-              <img src={HackWeekImage} />
-            </div>
-            <div className="content">
-              <a className="header">Dropbox HackWeek</a>
-              <div className="meta">
-                <span className="date">July 2016</span>
-              </div>
-              <div className="description">
-                Improving content discovery in Dropbox through search and intelligence
-              </div>
-            </div>
-            <div className="extra content">
-              <a>
-                Made with <i className="heart icon"></i> by 5 Dropboxers
-              </a>
-            </div>
-          </div>
-        </div>
           <div className="ui icon input">
             <input type="text" placeholder="Presentations shared by @ruben in the last week..." />
             <i className="search icon"></i>
@@ -141,4 +120,28 @@ export default connect((mapStateToProps), {
   </div>
 </div>
 
+*/
+
+/*
+<div className="ui centered cards">
+  <div className="ui card">
+    <div className="image">
+      <img src={HackWeekImage} />
+    </div>
+    <div className="content">
+      <a className="header">Dropbox HackWeek</a>
+      <div className="meta">
+        <span className="date">July 2016</span>
+      </div>
+      <div className="description">
+        Improving content discovery in Dropbox through search and intelligence
+      </div>
+    </div>
+    <div className="extra content">
+      <a>
+        Made with <i className="heart icon"></i> by 5 Dropboxers
+      </a>
+    </div>
+  </div>
+</div>
 */
