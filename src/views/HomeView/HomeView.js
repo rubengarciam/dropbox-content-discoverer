@@ -35,11 +35,33 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   render () {
+    let nlp = require('nlp_compromise')
+    var input = nlp_compromise.sentence('Presentations created in the last 3 weeks, sent from Daniel from Sydney')
+
+    var html = "<b>Find me presentations created in the last 3 weeks, sent from Daniel from Sydney</b> <br/>"
+    var people = input.people()[0].text
+    var date = input.dates()[0].text
+    var place = input.places()[0].text
+    var verb = input.verbs()[0].text
+    var all_n = input.nouns()
+    var nouns = ""
+    for (var i = 0; i < all_n.length; ++i) {
+      nouns += "[" + all_n[i].text + "]"
+    }
+
     return (
       <div className='container text-center'>
           <div className="ui icon input">
             <input type="text" placeholder="Presentations shared by @ruben in the last week..." />
             <i className="search icon"></i>
+          </div>
+          <div className="NLP analysis">
+            <li>Input: <label id="input" text={input.text()}></li>
+            <li>People: <label id="people" text={{people}></li>
+            <li>Date: <label id="date" text={{date}></li>
+            <li>Place: <label id="place" text={{place}></li>
+            <li>Verb: <label id="verb" text={{verb}></li>
+            <li>Nouns: <label id="nouns" text={{nouns}></li>
           </div>
           <div className="ui feed">
             <div className="event">
@@ -145,4 +167,3 @@ export default connect((mapStateToProps), {
   </div>
 </div>
 */
-
