@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
 import HackWeekImage from './hackweek.png'
+
 /* import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss' */
 
@@ -52,8 +53,7 @@ export class HomeView extends React.Component<void, Props, void> {
             </div>
             <div className="extra content">
               <a>
-                <i className="user icon"></i>
-                5 Dropboxers working
+                Made with <i className="heart icon"></i> by 5 Dropboxers
               </a>
             </div>
           </div>
