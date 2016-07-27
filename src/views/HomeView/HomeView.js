@@ -72,8 +72,14 @@ export class HomeView extends React.Component<void, Props, void> {
 
   extractFileTypes(terms) {
     let fileTypesMapping = {
+      'pdf': 'pdf',
+      'pptx': 'pptx',
+      'docx': 'docx',
+      'xlsx': 'xlsx',
       'presentation': 'pptx',
-      'word': 'docx',
+      'powerpoint': 'pptx',
+      'word document': 'docx',
+      'pdf document': 'pdf',
       'spreadsheet': 'xlsx'
     }
 
