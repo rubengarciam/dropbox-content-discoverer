@@ -7,8 +7,8 @@ import {ResultsView} from '../ResultsView/ResultsView'
 import {SidebarView} from '../SidebarView/SidebarView'
 var Dropbox = require('dropbox');
 
-//const TOKEN = "PUT YOUR TOKEN HERE";
-const TOKEN = "6b1-OMKFbLAAAAAAACq5HJi-_qKdtr7xCtMQq98ormjk_p1IZ2DEHC2IOHPA5Ego";
+const TOKEN = "PUT YOUR TOKEN HERE";
+
 var dbx = new Dropbox({ accessToken: TOKEN });
 //var dbx = new Dropbox({ clientId: CLIENT_ID });
 
@@ -55,7 +55,7 @@ export class HomeView extends React.Component<void, Props, void> {
 
   componentDidMount () {
   }
-  
+
   render () {
     return (
       <div className='view-container'>
