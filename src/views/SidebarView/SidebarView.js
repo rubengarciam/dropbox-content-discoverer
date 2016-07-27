@@ -1,17 +1,10 @@
 /* @flow */
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, {} from 'react'
 import DropboxGlyph from './dropbox_glyph_blue.svg'
 
-type Props = {
-};
+type Props = {};
+
 export class SidebarView extends React.Component<void, Props, void> {
-  /*static propTypes = {
-  };
-
-  componentDidMount () {
-  }*/
-
   render () {
     return (
       <div className="ui sidebar visible vertical menu">
