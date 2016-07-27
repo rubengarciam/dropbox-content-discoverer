@@ -57,12 +57,31 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   render () {
+    let nlp = require('nlp_compromise')
+    var input = nlp_compromise.sentence('Presentations created in the last 3 weeks, sent from Daniel from Sydney')
+    var people = input.people()[0].text
+    var date = input.dates()[0].text
+    var place = input.places()[0].text
+    var verb = input.verbs()[0].text
+    var all_n = input.nouns()
+    var nouns = ""
+    for (var i = 0; i < all_n.length; ++i) {
+      nouns += "[" + all_n[i].text + "]"
+    }
+
     return (
       <div className='view-container'>
         <SidebarView />
         <div className="pusher">
           <div className='container text-center'>
-
+            <div>
+              {input.text()} <br/>
+              People: {people} <br/>
+              Date: {date} <br/>
+              Place: {place} <br/>
+              Verb: {verb} <br/>
+              Nouns: {nouns} <br/>
+            </div>
             <div className="ui icon input">
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
