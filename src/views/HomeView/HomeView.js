@@ -34,12 +34,26 @@ export class HomeView extends React.Component<void, Props, void> {
     };
   }
 
+  stripInfo(terms, filterOut) {
+    return terms.filter(function(t) {
+      return !t.pos[filterOut];
+    });
+  }
+  combineTerms(terms) {
+    return terms.reduce(function(s, t) {
+      s += ' ' + t.root();
+      return s;
+    }, '').trim();
+  }
+
   nlpInspect(input) {
-    let nlp = require('nlp_compromise')
-    var sentence = nlp_compromise.sentence(input)
-    var result = sentence.root()
+    let nlp = require('nlp_compromise');
+    var terms = nlp.sentence(input).terms
+    var essentialTerms = this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner');
+    var result = this.combineTerms(essentialTerms);
+
     this.nlp_root = result;
-    return result;
+    return result
   }
 
   searchFiles(e){
@@ -71,7 +85,7 @@ export class HomeView extends React.Component<void, Props, void> {
               <i className="search icon"></i>
             </div>
             <div>
-              {this.nlp_root}
+              <pre>{this.nlp_root}</pre>
             </div>
             <ResultsView files={this.state.files} />
           </div>
