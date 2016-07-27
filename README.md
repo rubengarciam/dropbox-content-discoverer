@@ -17,3 +17,5 @@ $ npm start                     # Start node server
 ```
 
 Based on [react-redux-starter-kit](https://github.com/rsilvestre/react-redux-starter-kit/tree/semantic-ui)
+
+- You can hide _redux-devtools_ with _ctrl+h_

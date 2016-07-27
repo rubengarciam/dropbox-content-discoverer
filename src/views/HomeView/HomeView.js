@@ -7,6 +7,11 @@ import {ResultsView} from '../ResultsView/ResultsView'
 import {SidebarView} from '../SidebarView/SidebarView'
 var Dropbox = require('dropbox');
 
+const TOKEN = "PUT YOUR TOKEN HERE";
+
+var dbx = new Dropbox({ accessToken: TOKEN });
+//var dbx = new Dropbox({ clientId: CLIENT_ID });
+
 type Props = {
   counter: number,
   doubleAsync: Function,
@@ -28,10 +33,15 @@ export class HomeView extends React.Component<void, Props, void> {
       files: null
     };
   }
+
+  nlpInspect(input) {
+    return input;
+  }
+
   searchFiles(e){
-      var dbx = new Dropbox({ accessToken: "PUT YOUR ACCESS TOKEN HERE" });
       var self = this;
-      dbx.filesSearch({query: e.target.value,path: ""})
+      let input = this.nlpInspect(e.target.value);
+      dbx.filesSearch({query: input, path: ""})
         .then(function(response) {
           self.setState({
             files: response.matches
@@ -42,8 +52,10 @@ export class HomeView extends React.Component<void, Props, void> {
           return "NO files";
         })
   }
+
   componentDidMount () {
   }
+
   render () {
     let nlp = require('nlp_compromise')
     var input = nlp_compromise.sentence('Presentations created in the last 3 weeks, sent from Daniel from Sydney')
@@ -62,6 +74,7 @@ export class HomeView extends React.Component<void, Props, void> {
         <SidebarView />
         <div className="pusher">
           <div className='container text-center'>
+
             <div className="ui icon input">
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
