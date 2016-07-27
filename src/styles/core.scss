@@ -51,29 +51,30 @@
   .ui.feed > .event > .content{
     .summary{
       font-weight: normal;
+      width: 550px;
       .file{
         font-weight: bold;
         margin-right: 10px;
       }
     }
-    .date {
-      color: rgb(193,193,193);
-      font-weight: 100;
-      left: 10px;
-    }
   }
-  .ui.feed > .event > .button{
-    height: 36px;
+  .ui.feed > .event > .date{
+    color: rgb(193,193,193);
+    font-weight: 100;
+    font-size: .9rem;
+    left: 10px;
   }
   .ui.feed > .event > .label .icon{
     font-size: 2em;
     color: rgb(168,167,167)
   }
-  .ui.footer {
-    position: absolute;
+  .ui.vertical.footer.segment {
+    position: fixed;
     bottom: 0;
     width: 100%;
+    margin-left: -10px;
     font-size: .8rem;
     color: rgb(207,207,207);
+    background: #FFF;
   }
 }

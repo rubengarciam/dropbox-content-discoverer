@@ -2,38 +2,48 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
-import HackWeekImage from './hackweek.png'
+import {FooterView} from '../FooterView/FooterView'
+import {ResultsView} from '../ResultsView/ResultsView'
+import {SidebarView} from '../SidebarView/SidebarView'
+var Dropbox = require('dropbox');
 
-/* import DuckImage from './Duck.jpg'
-import classes from './HomeView.scss' */
-
-// We can use Flow (http://flowtype.org/) to type our component's props
-// and state. For convenience we've included both regular propTypes and
-// Flow types, but if you want to try just using Flow you'll want to
-// disable the eslint rule `react/prop-types`.
-// NOTE: You can run `npm run flow:check` to check for any errors in your
-// code, or `npm i -g flow-bin` to have access to the binary globally.
-// Sorry Windows users :(.
 type Props = {
   counter: number,
   doubleAsync: Function,
   increment: Function
 };
 
-// We avoid using the `@connect` decorator on the class definition so
-// that we can export the undecorated component for testing.
-// See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 export class HomeView extends React.Component<void, Props, void> {
   static propTypes = {
     counter: PropTypes.number.isRequired,
     doubleAsync: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired
   };
+  constructor(props){
+    super(props);
 
-  componentDidMount () {
-    $('select.dropdown').dropdown('set selected', ['meteor', 'ember'])
+    this.searchFiles = this.searchFiles.bind(this);
+
+    this.state =  {
+      files: null
+    };
   }
-
+  searchFiles(e){
+      var dbx = new Dropbox({ accessToken: "PUT YOUR ACCESS TOKEN HERE" });
+      var self = this;
+      dbx.filesSearch({query: e.target.value,path: ""})
+        .then(function(response) {
+          self.setState({
+            files: response.matches
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+          return "NO files";
+        })
+  }
+  componentDidMount () {
+  }
   render () {
     let nlp = require('nlp_compromise')
     var input = nlp_compromise.sentence('Presentations created in the last 3 weeks, sent from Daniel from Sydney')
@@ -48,63 +58,26 @@ export class HomeView extends React.Component<void, Props, void> {
     }
 
     return (
-      <div className='container text-center'>
-          <div className="ui icon input">
-            <input type="text" placeholder="Presentations shared by @ruben in the last week..." />
-            <i className="search icon"></i>
-          </div>
-          <div className="NLP analysis">
-            <li>Input: <label id="input" text={input.text()}></li>
-            <li>People: <label id="people" text={{people}></li>
-            <li>Date: <label id="date" text={{date}></li>
-            <li>Place: <label id="place" text={{place}></li>
-            <li>Verb: <label id="verb" text={{verb}></li>
-            <li>Nouns: <label id="nouns" text={{nouns}></li>
-          </div>
-          <div className="ui feed">
-            <div className="event">
-              <div className="label">
-                <i className="file powerpoint outline icon"></i>
+      <div className='view-container'>
+        <SidebarView />
+        <div className="pusher">
+          <div className='container text-center'>
+            <div className="ui icon input">
+              <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
+              <i className="search icon"></i>
+              <div className="NLP analysis">
+                <li>Input: <label id="input" text={input.text()}></li>
+                <li>People: <label id="people" text={{people}></li>
+                <li>Date: <label id="date" text={{date}></li>
+                <li>Place: <label id="place" text={{place}></li>
+                <li>Verb: <label id="verb" text={{verb}></li>
+                <li>Nouns: <label id="nouns" text={{nouns}></li>
               </div>
-              <div className="content">
-                  <div className="summary">
-                  <span className="file">File 1.ppt</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder
-                    <div className="date">
-                      3 days ago
-                    </div>
-                </div>
-              </div>
-              <div className="ui right floated primary button">Open</div>
             </div>
-            <div className="event">
-              <div className="label">
-                <i className="file text outline icon"></i>
-              </div>
-              <div className="content">
-                  <div className="summary">
-                  <span className="file">File 1.txt</span> Created by <a>you</a> in the <a>hackweek 2016</a> shared folder
-                    <div className="date">
-                      2 weeks ago
-                    </div>
-                </div>
-              </div>
-              <div className="ui right floated primary button">Open</div>
-            </div>
-            <div className="event">
-              <div className="label">
-                <i className="file pdf outline icon"></i>
-              </div>
-              <div className="content">
-                  <div className="summary">
-                  <span className="file">File 1.pdf</span> Created by <a>Jenny Hess</a> in the <a>marketing</a> shared folder
-                    <div className="date">
-                      3 days ago
-                    </div>
-                </div>
-              </div>
-              <div className="ui right floated primary button">Open</div>
-            </div>
+            <ResultsView files={this.state.files} />
           </div>
+        </div>
+        <FooterView />
       </div>
     )
   }
@@ -117,51 +90,3 @@ export default connect((mapStateToProps), {
   increment: () => increment(1),
   doubleAsync
 })(HomeView)
-
-/*
-<h2>
-  Sample Counter:
-  {' '}
-  <span className={classes['counter--green']}>{this.props.counter}</span>
-</h2>
-<button className='ui primary button' onClick={this.props.increment}>
-  Increment
-</button>
-{' '}
-<button className='btn btn-default' onClick={this.props.doubleAsync}>
-  Double (Async)
-</button>
-
-<div className='row'>
-  <div className='col-xs-2 col-xs-offset-5'>
-    <img className={classes.duck}
-      src={DuckImage}
-      alt='This is a duck, because Redux.' />
-  </div>
-</div>
-
-*/
-
-/*
-<div className="ui centered cards">
-  <div className="ui card">
-    <div className="image">
-      <img src={HackWeekImage} />
-    </div>
-    <div className="content">
-      <a className="header">Dropbox HackWeek</a>
-      <div className="meta">
-        <span className="date">July 2016</span>
-      </div>
-      <div className="description">
-        Improving content discovery in Dropbox through search and intelligence
-      </div>
-    </div>
-    <div className="extra content">
-      <a>
-        Made with <i className="heart icon"></i> by 5 Dropboxers
-      </a>
-    </div>
-  </div>
-</div>
-*/
