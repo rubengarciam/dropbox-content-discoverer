@@ -42,7 +42,14 @@ export class HomeView extends React.Component<void, Props, void> {
       return !t.pos[infoType];
     });
   }
-  
+
+  stripMeaninglessTerms(terms) {
+    let meaninglessTerms = ['create'];
+    return terms.filter(function(t) {
+      return meaninglessTerms.indexOf(t.root()) < 0;
+    });
+  }
+
   extractInfo(terms, infoType) {
     var dates = terms.filter(function(t) {
       return t.pos[infoType];
@@ -75,6 +82,10 @@ export class HomeView extends React.Component<void, Props, void> {
     }).map(function(t) {
       return fileTypesMapping[t.root()];
     });
+
+    return terms.filter(function(t) {
+      return !fileTypesMapping[t.root()]
+    });
   }
 
   combineTerms(terms) {
@@ -87,8 +98,9 @@ export class HomeView extends React.Component<void, Props, void> {
   nlpInspect(input) {
     let nlp = require('nlp_compromise');
     var terms = nlp.sentence(input).terms
-    var essentialTerms = this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner');
-    this.extractFileTypes(essentialTerms);
+    var essentialTerms = this.stripInfo(this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner'), 'Conjunction');
+    essentialTerms = this.stripMeaninglessTerms(essentialTerms);
+    essentialTerms = this.extractFileTypes(essentialTerms);
     essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
 
     var result = this.combineTerms(essentialTerms);
