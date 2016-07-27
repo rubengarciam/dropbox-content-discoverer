@@ -85,6 +85,14 @@ export class HomeView extends React.Component<void, Props, void> {
             <div className="ui icon input">
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
+              <div className="NLP analysis">
+                <li>Input: <label id="input" text={input.text()}></li>
+                <li>People: <label id="people" text={{people}></li>
+                <li>Date: <label id="date" text={{date}></li>
+                <li>Place: <label id="place" text={{place}></li>
+                <li>Verb: <label id="verb" text={{verb}></li>
+                <li>Nouns: <label id="nouns" text={{nouns}></li>
+              </div>
             </div>
             <ResultsView files={this.state.files} />
           </div>
