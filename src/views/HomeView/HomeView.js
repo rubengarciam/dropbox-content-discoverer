@@ -33,6 +33,7 @@ export class HomeView extends React.Component<void, Props, void> {
       files: null
     };
 
+    this.preFilters = {};
     this.postFilters = {};
   }
 
@@ -62,6 +63,20 @@ export class HomeView extends React.Component<void, Props, void> {
     return this.extractInfo(terms, 'Person');
   }
 
+  extractFileTypes(terms) {
+    let fileTypesMapping = {
+      'presentation': 'pptx',
+      'word': 'docx',
+      'spreadsheet': 'xlsx'
+    }
+
+    this.preFilters['fileTypes'] = terms.filter(function(t) {
+      return fileTypesMapping[t.root()]
+    }).map(function(t) {
+      return fileTypesMapping[t.root()];
+    });
+  }
+
   combineTerms(terms) {
     return terms.reduce(function(s, t) {
       s += ' ' + t.root();
@@ -73,6 +88,7 @@ export class HomeView extends React.Component<void, Props, void> {
     let nlp = require('nlp_compromise');
     var terms = nlp.sentence(input).terms
     var essentialTerms = this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner');
+    this.extractFileTypes(essentialTerms);
     essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
 
     var result = this.combineTerms(essentialTerms);
@@ -110,6 +126,7 @@ export class HomeView extends React.Component<void, Props, void> {
             </div>
             <div>
               <pre>{this.nlp_root}</pre>
+              <pre>{JSON.stringify(this.preFilters, null, 2)}</pre>
               <pre>{JSON.stringify(this.postFilters, null, 2)}</pre>
             </div>
             <ResultsView files={this.state.files} />
