@@ -36,23 +36,30 @@ export class HomeView extends React.Component<void, Props, void> {
     this.postFilters = {};
   }
 
-  stripInfo(terms, filterOut) {
+  stripInfo(terms, infoType) {
     return terms.filter(function(t) {
-      return !t.pos[filterOut];
+      return !t.pos[infoType];
+    });
+  }
+  
+  extractInfo(terms, infoType) {
+    var dates = terms.filter(function(t) {
+      return t.pos[infoType];
+    });
+    if (dates.length > 0) {
+      this.postFilters[infoType] = dates[0].root();
+    }
+    return terms.filter(function(t) {
+      return !t.pos[infoType];
     });
   }
 
   extractDate(terms) {
-    var dates = terms.filter(function(t) {
-      return t.pos['Date'];
-    });
-    if (dates.length > 0) {
-      this.postFilters['Date'] = dates[0].root();
-    }
+    return this.extractInfo(terms, 'Date');
+  }
 
-    return terms.filter(function(t) {
-      return !t.pos['Date'];
-    });
+  extractPerson(terms) {
+    return this.extractInfo(terms, 'Person');
   }
 
   combineTerms(terms) {
@@ -66,7 +73,7 @@ export class HomeView extends React.Component<void, Props, void> {
     let nlp = require('nlp_compromise');
     var terms = nlp.sentence(input).terms
     var essentialTerms = this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner');
-    essentialTerms = this.extractDate(essentialTerms);
+    essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
 
     var result = this.combineTerms(essentialTerms);
     this.nlp_root = result;
