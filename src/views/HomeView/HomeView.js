@@ -102,6 +102,9 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   nlpInspect(input) {
+    this.preFilters = {};
+    this.postFilters = {};
+    
     let nlp = require('nlp_compromise');
     var terms = nlp.sentence(input).terms
     var essentialTerms = this.stripInfo(this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner'), 'Conjunction');
