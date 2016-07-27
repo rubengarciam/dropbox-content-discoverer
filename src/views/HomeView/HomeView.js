@@ -96,7 +96,7 @@ export class HomeView extends React.Component<void, Props, void> {
 
   combineTerms(terms) {
     return terms.reduce(function(s, t) {
-      s += ' ' + t.root();
+      s += ' ' + t.normal;
       return s;
     }, '').trim();
   }
@@ -110,7 +110,7 @@ export class HomeView extends React.Component<void, Props, void> {
     essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
 
     var result = this.combineTerms(essentialTerms);
-    this.nlp_root = result;
+    this.resultQuery = result;
     return result
   }
 
@@ -143,7 +143,7 @@ export class HomeView extends React.Component<void, Props, void> {
               <i className="search icon"></i>
             </div>
             <div>
-              <pre>{this.nlp_root}</pre>
+              <pre>{this.resultQuery}</pre>
               <pre>{JSON.stringify(this.preFilters, null, 2)}</pre>
               <pre>{JSON.stringify(this.postFilters, null, 2)}</pre>
             </div>
