@@ -44,7 +44,7 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   stripMeaninglessTerms(terms) {
-    let meaninglessTerms = ['create'];
+    let meaninglessTerms = ['create', 'share'];
     return terms.filter(function(t) {
       return meaninglessTerms.indexOf(t.root()) < 0;
     });
