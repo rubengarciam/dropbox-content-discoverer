@@ -116,15 +116,29 @@ export class HomeView extends React.Component<void, Props, void> {
     this.postFilters = {};
 
     let nlp = require('nlp_compromise');
-    var terms = nlp.sentence(input).terms
-    var essentialTerms = this.stripInfo(this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner'), 'Conjunction');
-    essentialTerms = this.stripMeaninglessTerms(essentialTerms);
-    essentialTerms = this.extractFileTypes(essentialTerms);
-    essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
 
-    var result = this.combineTerms(essentialTerms);
-    this.resultQuery = result;
-    return result
+    let beginQuote = input.indexOf('"');
+    let endQuote = input.lastIndexOf('"');
+    if (beginQuote >= 0 && beginQuote < endQuote) {
+      // If the input has quoted string, then extract it as searchContent
+      let metaInfo = input.substring(0, beginQuote) + input.substring(endQuote + 1);
+      let searchContent = input.substring(beginQuote + 1, endQuote);
+      // Extract meta info to filters
+      var metaTerms = nlp.sentence(metaInfo).terms
+      this.extractPerson(this.extractDate(this.extractFileTypes(metaTerms)));
+      this.resultQuery = "[" + searchContent + "]";
+      return searchContent
+    } else {
+      var terms = nlp.sentence(input).terms
+      var essentialTerms = this.stripInfo(this.stripInfo(this.stripInfo(terms, 'Preposition'), 'Determiner'), 'Conjunction');
+      essentialTerms = this.stripMeaninglessTerms(essentialTerms);
+      essentialTerms = this.extractFileTypes(essentialTerms);
+      essentialTerms = this.extractPerson(this.extractDate(essentialTerms));
+      var result = this.combineTerms(essentialTerms);
+      this.resultQuery = "[" + result + "]";
+      return result
+    }
+
   }
 
   searchFiles(e){
