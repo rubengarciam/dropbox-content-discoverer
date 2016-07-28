@@ -58,7 +58,7 @@ function extractFileTypes (terms) {
   if (terms.length === 1) {
     return terms
   }
-  preFilters['fileTypes'].push(terms.filter(function (t) {
+  preFilters['fileTypes'] = preFilters['fileTypes'].concat(terms.filter(function (t) {
     return fileTypesMapping[t.root()]
   }).map(function (t) {
     return fileTypesMapping[t.root()]
