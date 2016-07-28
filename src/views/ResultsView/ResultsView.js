@@ -15,7 +15,7 @@ export class ResultsView extends React.Component {
   }
 
   renderFile(file, key){
-    console.log(file);
+    //console.log(file);
     let path = file.metadata.path_display;
     return (
     <div className="event" key={key}>
@@ -36,7 +36,7 @@ export class ResultsView extends React.Component {
   }
 
   renderFolder(file, key){
-    console.log(file);
+    //console.log(file);
     let path = file.metadata.path_display;
     return (
     <div className="event" key={key}>
