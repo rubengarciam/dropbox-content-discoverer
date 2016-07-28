@@ -31,7 +31,7 @@ function stripMeaninglessTerms (terms) {
 
 function extractInfo (terms, infoType) {
   // Do not parse the terms if it's the only term
-  if (terms.length === 1) {
+  if (terms.length <= 1) {
     return terms
   }
   var dates = terms.filter(function (t) {
@@ -55,7 +55,7 @@ function extractPerson (terms) {
 
 function extractFileTypes (terms) {
   // Do not parse the terms if it's the only term
-  if (terms.length === 1) {
+  if (terms.length <= 1) {
     return terms
   }
   preFilters['fileTypes'] = preFilters['fileTypes'].concat(terms.filter(function (t) {
@@ -76,30 +76,32 @@ function combineTerms (terms) {
 }
 
 function extractFileTypesByWord (input) {
-  preFilters['fileTypes'] = [];
   var terms = input.split(" ").map(function (t) {
-    return nlp.noun(t)
+    if (t.trim().length > 0) {
+      return nlp.noun(t)
+    }
   })
   terms = extractFileTypes(terms)
   return combineTerms(terms)
 }
 
 function nlpInspect (input) {
-  preFilters = {}
+  preFilters = {'fileTypes': []}
   postFilters = {}
-  let resultQuery
   let beginQuote = input.indexOf('"')
   let endQuote = input.lastIndexOf('"')
   if (beginQuote >= 0 && beginQuote < endQuote) {
     // If the input has quoted string, then extract it as searchContent
-    let metaInfo = input.substring(0, beginQuote) + input.substring(endQuote + 1)
     let searchContent = input.substring(beginQuote + 1, endQuote)
+    let metaInfo = input.substring(0, beginQuote) + input.substring(endQuote + 1)
     // Extract meta info to filters
-    metaInfo = extractFileTypesByWord(metaInfo)
     var metaTerms = nlp.sentence(metaInfo).terms
     extractPerson(extractDate(extractFileTypes(metaTerms)))
-    resultQuery = '[' + searchContent + ']'
-    return searchContent
+    return {
+      input: searchContent,
+      pre: preFilters,
+      post: postFilters
+    }
   } else {
     input = extractFileTypesByWord(input)
     var terms = nlp.sentence(input).terms
@@ -108,7 +110,6 @@ function nlpInspect (input) {
     essentialTerms = extractFileTypes(essentialTerms)
     essentialTerms = extractPerson(extractDate(essentialTerms))
     var result = combineTerms(essentialTerms)
-    resultQuery = '[' + result + ']'
     return {
       input: result,
       pre: preFilters,
