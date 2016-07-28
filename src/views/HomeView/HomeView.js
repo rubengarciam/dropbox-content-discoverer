@@ -6,13 +6,11 @@ import {FooterView} from '../FooterView/FooterView'
 import {ResultsView} from '../ResultsView/ResultsView'
 import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
-var Dropbox = require('dropbox');
-
+var Dropbox = require('dropbox')
 
 const TOKEN = "PUT YOUR TOKEN HERE";
 
 var dbx = new Dropbox({ accessToken: TOKEN });
-//var dbx = new Dropbox({ clientId: CLIENT_ID });
 
 type Props = {
   counter: number,
@@ -28,10 +26,7 @@ export class HomeView extends React.Component<void, Props, void> {
   };
   constructor(props){
     super(props);
-
     this.searchFiles = this.searchFiles.bind(this);
-    //this.applyNLP = this.applyNLP.bind(this);
-
     this.state =  {
       files: null,
       input: null,
