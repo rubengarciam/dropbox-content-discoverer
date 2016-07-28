@@ -58,11 +58,11 @@ function extractFileTypes (terms) {
   if (terms.length === 1) {
     return terms
   }
-  preFilters['fileTypes'] = terms.filter(function (t) {
+  preFilters['fileTypes'].push(terms.filter(function (t) {
     return fileTypesMapping[t.root()]
   }).map(function (t) {
     return fileTypesMapping[t.root()]
-  })
+  }))
   return terms.filter(function (t) {
     return !fileTypesMapping[t.root()]
   })
@@ -76,6 +76,7 @@ function combineTerms (terms) {
 }
 
 function extractFileTypesByWord (input) {
+  preFilters['fileTypes'] = [];
   var terms = input.split(" ").map(function (t) {
     return nlp.noun(t)
   })
