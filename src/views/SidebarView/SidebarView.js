@@ -28,13 +28,13 @@ export class SidebarView extends React.Component<void, Props, void> {
     )
   }
   renderDate(date) {
-      return date ? this.renderItem("Date", date) : null;
+    return date ? this.renderItem("Date", date) : null;
   }
   renderPerson(person) {
-      return person ? this.renderItem("Who", person) : null;
+    return person ? this.renderItem("Who", person) : null;
   }
   renderFormats(formats) {
-      return (formats && formats.length > 0) ? this.renderItems("Format", formats) : null;
+    return (formats && formats.length > 0) ? this.renderItems("Format", formats) : null;
   }
   render () {
     let input = this.props.input;

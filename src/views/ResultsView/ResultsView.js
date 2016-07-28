@@ -12,6 +12,11 @@ function days_between(date1, date2) {
 export class ResultsView extends React.Component {
   constructor(props){
     super(props);
+    this.showFolders = this.showFolders.bind(this);
+    this.days = 7;
+    this.state = {
+      folders: false
+    };
   }
 
   renderFile(file, key){
@@ -38,22 +43,40 @@ export class ResultsView extends React.Component {
   renderFolder(file, key){
     //console.log(file);
     let path = file.metadata.path_display;
-    return (
-    <div className="event" key={key}>
-      <div className="label">
-        <i className="folder outline icon"></i>
-      </div>
-      <div className="content">
-        <div className="summary">
-          <span className="file">{file.metadata.name}</span>
-          in <a>{path.slice(0,path.lastIndexOf("/"))}</a>
+    if (this.state.folders) {
+      return (
+      <div className="event" key={key}>
+        <div className="label">
+          <i className="folder outline icon"></i>
+        </div>
+        <div className="content">
+          <div className="summary">
+            <span className="file">{file.metadata.name}</span>
+            in <a>{path.slice(0,path.lastIndexOf("/"))}</a>
+          </div>
         </div>
       </div>
-      <div className="ui right floated date">
-          3d ago
-      </div>
-    </div>
-    )
+      )
+    }
+  }
+
+  showFolders(e){
+    this.setState({
+      folders: !this.state.folders
+    })
+  }
+
+  renderFoldersToggle(){
+    if (this.props.files) {
+      return (
+        <div className="ui right floated basic segment folders">
+          <div className="ui toggle checkbox">
+            <input type="checkbox" value="true" onClick={this.showFolders} name="folders" />
+            <label><i className="folder outline large icon"></i></label>
+          </div>
+        </div>
+      )
+    }
   }
 
   renderResults(files){
@@ -67,8 +90,11 @@ export class ResultsView extends React.Component {
 
   render () {
     return (
-      <div className="ui feed">
-        {this.renderResults(this.props.files)}
+      <div className="results">
+        {this.renderFoldersToggle()}
+        <div className="ui feed">
+          {this.renderResults(this.props.files)}
+        </div>
       </div>
     )
   }

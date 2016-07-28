@@ -1,4 +1,3 @@
-var React = require('React');
 var nlp = require('nlp_compromise');
 
 const fileTypesMapping = {

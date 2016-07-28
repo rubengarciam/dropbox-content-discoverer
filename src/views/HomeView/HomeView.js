@@ -8,7 +8,6 @@ import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
 var Dropbox = require('dropbox');
 
-
 const TOKEN = "PUT YOUR TOKEN HERE";
 
 var dbx = new Dropbox({ accessToken: TOKEN });
