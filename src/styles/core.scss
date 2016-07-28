@@ -59,6 +59,9 @@
     .summary{
       font-weight: normal;
       width: 550px;
+      a.path {
+        color: rgb(117,117,117)
+      }
       .file{
         font-weight: bold;
         margin-right: 10px;

@@ -8,6 +8,7 @@ import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
 var Dropbox = require('dropbox');
 
+
 const TOKEN = "PUT YOUR TOKEN HERE";
 
 var dbx = new Dropbox({ accessToken: TOKEN });
@@ -72,7 +73,7 @@ export class HomeView extends React.Component<void, Props, void> {
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
             </div>
-            <ResultsView files={this.state.files} />
+            <ResultsView files={this.state.files} filters={this.state.postFilters} />
           </div>
         </div>
         <FooterView />
