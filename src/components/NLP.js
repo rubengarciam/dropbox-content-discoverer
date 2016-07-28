@@ -23,7 +23,7 @@ function stripInfo (terms, infoType) {
 }
 
 function stripMeaninglessTerms (terms) {
-  let meaninglessTerms = ['create', 'share']
+  let meaninglessTerms = ['create', 'share', 'file', 'modify']
   return terms.filter(function (t) {
     return meaninglessTerms.indexOf(t.root()) < 0
   })
