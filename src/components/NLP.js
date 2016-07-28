@@ -74,6 +74,14 @@ function combineTerms (terms) {
   }, '').trim()
 }
 
+function extractFileTypesByWord (input) {
+  var terms = input.split(" ").map(function (t) {
+    return nlp.noun(t)
+  })
+  terms = extractFileTypes(terms)
+  return combineTerms(terms)
+}
+
 function nlpInspect (input) {
   preFilters = {}
   postFilters = {}
@@ -85,11 +93,13 @@ function nlpInspect (input) {
     let metaInfo = input.substring(0, beginQuote) + input.substring(endQuote + 1)
     let searchContent = input.substring(beginQuote + 1, endQuote)
     // Extract meta info to filters
+    metaInfo = extractFileTypesByWord(metaInfo)
     var metaTerms = nlp.sentence(metaInfo).terms
     extractPerson(extractDate(extractFileTypes(metaTerms)))
     resultQuery = '[' + searchContent + ']'
     return searchContent
   } else {
+    input = extractFileTypesByWord(input)
     var terms = nlp.sentence(input).terms
     var essentialTerms = stripInfo(stripInfo(stripInfo(terms, 'Preposition'), 'Determiner'), 'Conjunction')
     essentialTerms = stripMeaninglessTerms(essentialTerms)
