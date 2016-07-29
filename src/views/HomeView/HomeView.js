@@ -47,7 +47,7 @@ export class HomeView extends React.Component<void, Props, void> {
             preFilters: result.pre,
             postFilters:result.post
           });
-          console.log(self.state);
+          //console.log(self.state);
         })
         .catch(function(error) {
           console.log(error);
@@ -59,6 +59,7 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   render () {
+    var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null;
     return (
       <div className='view-container'>
         <SidebarView input={this.state.input} preFilters={this.state.preFilters} postFilters={this.state.postFilters} />
@@ -68,7 +69,7 @@ export class HomeView extends React.Component<void, Props, void> {
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
             </div>
-            <ResultsView files={this.state.files} filters={this.state.postFilters} />
+            <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} />
           </div>
         </div>
         <FooterView />

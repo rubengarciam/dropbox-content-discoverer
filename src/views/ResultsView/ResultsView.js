@@ -35,6 +35,16 @@ export class ResultsView extends React.Component {
     return 0;
   }
 
+  filterFormats(name){
+    if (this.props.formats.length > 0) {
+      var filtered = false;
+      this.props.formats.map(function (format){
+        if (name.toUpperCase().includes('.'+format.toUpperCase())) { filtered = true }
+      })
+      return filtered
+    } else { return true }
+  }
+
   filterDate(dated){
     let filters = this.props.filters;
     let date;
@@ -53,7 +63,7 @@ export class ResultsView extends React.Component {
     let url = "https://dropbox.com/work"+path;
     let dated = days_between(new Date(file.metadata.client_modified), new Date());
     //console.log(dated);
-    if (this.filterDate(dated)) {
+    if (this.filterDate(dated) && this.filterFormats(file.metadata.name)) {
       return (
       <div className="event" key={key}>
         <div className="label">

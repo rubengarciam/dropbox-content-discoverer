@@ -9,9 +9,10 @@ const fileTypesMapping = {
   'image': 'png',
   'presentation': 'pptx',
   'powerpoint': 'pptx',
-  'word document': 'docx',
+  'word': 'docx',
   'pdf document': 'pdf',
-  'spreadsheet': 'xlsx'
+  'spreadsheet': 'xlsx',
+  'video': 'mp4'
 }
 
 let preFilters = {}
@@ -82,7 +83,8 @@ function extractFileTypesByWord (input) {
       return nlp.noun(t)
     }
   })
-  terms = extractFileTypes(terms)
+  // cleaning undefined items
+  terms = extractFileTypes(terms.filter(function(e){return e}))
   return combineTerms(terms)
 }
 
