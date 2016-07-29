@@ -57,13 +57,24 @@ export class ResultsView extends React.Component {
     return true;
   }
 
+  filterPerson(file) {
+    let filters = this.props.filters;
+    if (filters && filters["Person"]) {
+      if (!file.metadata.sharing_info) { return false };
+      if (file.metadata.sharing_info.parent_shared_folder_id.toUpperCase().includes(filters["Person"].toUpperCase())) {
+          return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
   renderFile(file, key){
-    //console.log(file);
     let path = file.metadata.path_display;
     let url = "https://dropbox.com/work"+path;
     let dated = days_between(new Date(file.metadata.client_modified), new Date());
-    //console.log(dated);
-    if (this.filterDate(dated) && this.filterFormats(file.metadata.name)) {
+    if (this.filterDate(dated) && this.filterFormats(file.metadata.name) && this.filterPerson(file)) {
+    //if (this.filterDate(dated) && this.filterFormats(file.metadata.name)) {
       return (
       <div className="event" key={key}>
         <div className="label">
@@ -75,6 +86,9 @@ export class ResultsView extends React.Component {
               <a href={url}>{file.metadata.name}</a>
             </span>
             in the <a className="path">{path.slice(0,path.lastIndexOf("/"))}</a> folder
+            { file.metadata.sharing_info ? (
+              <div className="shared">Shared by {file.metadata.sharing_info.parent_shared_folder_id}</div>
+            ) : null}
           </div>
         </div>
         <div className="ui right floated date">
@@ -86,7 +100,6 @@ export class ResultsView extends React.Component {
   }
 
   renderFolder(file, key){
-    //console.log(file);
     let path = file.metadata.path_display;
     let url = "https://dropbox.com/work"+path;
     if (this.state.folders) {
@@ -136,14 +149,34 @@ export class ResultsView extends React.Component {
     }
   }
 
+  transformSharedNames(){
+    let filters = this.props.filters;
+    var newFiles = this.props.files;
+    var self = this;
+    if (this.props.shares.length > 0) {
+      newFiles.map(function(file, key) {
+        if (file.metadata.sharing_info) {
+        self.props.shares.map(function (folder){
+          if (folder.folderid == file.metadata.sharing_info.parent_shared_folder_id) {
+                file.metadata.sharing_info.parent_shared_folder_id = folder.username;
+          }
+        })
+      }
+    }) }
+    return newFiles;
+  }
+
   render () {
+    var files = this.transformSharedNames();
     return (
       <div className="results">
         {this.renderFoldersToggle()}
         <div className="ui feed">
-          {this.renderResults(this.props.files)}
+          {this.renderResults(files)}
         </div>
       </div>
     )
   }
 }
+
+// {this.renderResults(this.props.files)}

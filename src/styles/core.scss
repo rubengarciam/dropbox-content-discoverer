@@ -28,14 +28,13 @@
     .logo {
       width: 70px;
       margin-left: -15px;
-      margin-bottom: 30px;
     }
     .item {
-      margin-bottom: 20px;
       color: rgb(131,131,131);
       font-weight: 100;
     }
     h3{
+      margin-top: 20px;
       font-weight: 100;
       color: #647f94;
       font-size: 1.1rem;
@@ -67,6 +66,10 @@
       .file{
         font-weight: bold;
         margin-right: 10px;
+      }
+      .shared{
+        margin-top: 5px;
+        color: #e47730;
       }
     }
   }

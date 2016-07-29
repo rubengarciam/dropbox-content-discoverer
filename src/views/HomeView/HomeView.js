@@ -7,6 +7,7 @@ import {ResultsView} from '../ResultsView/ResultsView'
 import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
 var Dropbox = require('dropbox')
+var DL =  require('../../components/DropboxLib.js');
 
 const TOKEN = "PUT YOUR TOKEN HERE";
 
@@ -36,7 +37,6 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   searchFiles(e){
-      //console.log(e.target.value);
       var self = this;
       let result = NLP.nlpInspect(e.target.value);
       dbx.filesSearch({query: result.input, path: ""})
@@ -47,7 +47,6 @@ export class HomeView extends React.Component<void, Props, void> {
             preFilters: result.pre,
             postFilters:result.post
           });
-          //console.log(self.state);
         })
         .catch(function(error) {
           console.log(error);
@@ -56,9 +55,11 @@ export class HomeView extends React.Component<void, Props, void> {
   }
 
   componentDidMount () {
+    DL.populateSharingDetails(TOKEN);
   }
 
   render () {
+    //console.log(DL.sharedFolderDetails);
     var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null;
     return (
       <div className='view-container'>
@@ -69,7 +70,7 @@ export class HomeView extends React.Component<void, Props, void> {
               <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
               <i className="search icon"></i>
             </div>
-            <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} />
+            <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} shares={DL.sharedFolderDetails} />
           </div>
         </div>
         <FooterView />
