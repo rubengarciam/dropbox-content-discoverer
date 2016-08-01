@@ -100,7 +100,7 @@ export class HomeView extends React.Component {
         <div className='container text-center'>
           <a className="ui blue login button" href={url}>
             <i className="dropbox icon"></i>
-            Authenticate your Dropbox (we don't store anything!)
+            <span className="text">Authenticate your Dropbox (we don't store anything!)</span>
           </a>
         </div>
       )

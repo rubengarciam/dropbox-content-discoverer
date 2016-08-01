@@ -11,6 +11,7 @@ const fileTypesMapping = {
   'powerpoint': 'pptx',
   'word': 'docx',
   'pdf document': 'pdf',
+  'word document': 'docx',
   'spreadsheet': 'xlsx',
   'video': 'mp4'
 }
