@@ -44,6 +44,9 @@
   .container{
     padding-top: 70px;
     width: 700px;
+    .login.button{
+      margin-top: 300px;
+    }
   }
   .ui.input{
     margin-top: 5rem;
@@ -60,12 +63,14 @@
     .summary{
       font-weight: normal;
       width: 550px;
+      color: rgb(117,117,117);
       a.path {
-        color: rgb(117,117,117)
+        color: rgb(61,60,60)
       }
       .file{
-        font-weight: bold;
+        //font-weight: bold;
         margin-right: 10px;
+        color: rgb(0,84,125)
       }
       .shared{
         margin-top: 5px;

@@ -6,12 +6,13 @@ import {FooterView} from '../FooterView/FooterView'
 import {ResultsView} from '../ResultsView/ResultsView'
 import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
+var Auth = require('../../components/Auth')
 var Dropbox = require('dropbox')
 var DL =  require('../../components/DropboxLib.js');
 
-const TOKEN = "PUT YOUR TOKEN HERE";
-
-var dbx = new Dropbox({ accessToken: TOKEN });
+var CLIENT_ID = 'hdhsgxuttd41q5b';
+var TOKEN = null;
+var dbx = new Dropbox({ clientId: CLIENT_ID });
 
 type Props = {
   counter: number,
@@ -32,7 +33,8 @@ export class HomeView extends React.Component<void, Props, void> {
       files: null,
       input: null,
       preFilters: null,
-      postFilters: null
+      postFilters: null,
+      banner: true
     };
   }
 
@@ -54,24 +56,62 @@ export class HomeView extends React.Component<void, Props, void> {
         })
   }
 
+  checkNames(){
+    var self = this;
+    setTimeout(function(){
+      self.setState({
+        banner: false
+      })
+    },9000);
+  }
+
   componentDidMount () {
-    DL.populateSharingDetails(TOKEN);
+  }
+  renderBanner() {
+    if (this.state.banner ) {
+      DL.populateSharingDetails(TOKEN);
+      this.checkNames();
+      return (
+        <div className="ui green inverted segment">
+          <i className="asterisk loading white icon"></i> Results will be displayed when people's names are fetched, shouldn't take long! :)
+        </div>
+      )} else { null }
+  }
+
+  renderAuth() {
+    TOKEN = Auth.auth();
+    if (TOKEN) {
+      dbx.setAccessToken(TOKEN);
+      var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null;
+      return (
+        <div className='container text-center'>
+          {this.renderBanner()}
+          <div className="ui icon input">
+            <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
+            <i className="search icon"></i>
+          </div>
+          <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} shares={DL.sharedFolderDetails} />
+        </div>
+      )
+    } else {
+      var url = dbx.getAuthenticationUrl('http://localhost:3000/');
+      return (
+        <div className='container text-center'>
+          <a className="ui blue login button" href={url}>
+            <i className="dropbox icon"></i>
+            Authenticate your Dropbox (we don't store anything!)
+          </a>
+        </div>
+      )
+    }
   }
 
   render () {
-    //console.log(DL.sharedFolderDetails);
-    var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null;
     return (
       <div className='view-container'>
         <SidebarView input={this.state.input} preFilters={this.state.preFilters} postFilters={this.state.postFilters} />
         <div className="pusher">
-          <div className='container text-center'>
-            <div className="ui icon input">
-              <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
-              <i className="search icon"></i>
-            </div>
-            <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} shares={DL.sharedFolderDetails} />
-          </div>
+            {this.renderAuth()}
         </div>
         <FooterView />
       </div>

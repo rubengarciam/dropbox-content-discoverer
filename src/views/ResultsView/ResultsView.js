@@ -71,7 +71,9 @@ export class ResultsView extends React.Component {
 
   renderFile(file, key){
     let path = file.metadata.path_display;
+    let folder = path.slice(0,path.lastIndexOf("/"));
     let url = "https://dropbox.com/work"+path;
+    let urlFolder = "https://dropbox.com/work"+folder;
     let dated = days_between(new Date(file.metadata.client_modified), new Date());
     if (this.filterDate(dated) && this.filterFormats(file.metadata.name) && this.filterPerson(file)) {
     //if (this.filterDate(dated) && this.filterFormats(file.metadata.name)) {
@@ -85,7 +87,7 @@ export class ResultsView extends React.Component {
             <span className="file">
               <a href={url}>{file.metadata.name}</a>
             </span>
-            in the <a className="path">{path.slice(0,path.lastIndexOf("/"))}</a> folder
+            in the <a href={urlFolder} className="path">{folder}</a> folder
             { file.metadata.sharing_info ? (
               <div className="shared">Shared by {file.metadata.sharing_info.parent_shared_folder_id}</div>
             ) : null}
@@ -101,7 +103,9 @@ export class ResultsView extends React.Component {
 
   renderFolder(file, key){
     let path = file.metadata.path_display;
+    let folder = path.slice(0,path.lastIndexOf("/"));
     let url = "https://dropbox.com/work"+path;
+    let urlFolder = "https://dropbox.com/work"+folder;
     if (this.state.folders) {
       return (
       <div className="event" key={key}>
@@ -113,7 +117,7 @@ export class ResultsView extends React.Component {
             <span className="file">
               <a href={url}>{file.metadata.name}</a>
             </span>
-            in <a className="path">{path.slice(0,path.lastIndexOf("/"))}</a>
+            in <a href={urlFolder} className="path">{path.slice(0,path.lastIndexOf("/"))}</a>
           </div>
         </div>
       </div>
@@ -153,7 +157,7 @@ export class ResultsView extends React.Component {
     let filters = this.props.filters;
     var newFiles = this.props.files;
     var self = this;
-    if (this.props.shares.length > 0) {
+    if (newFiles && (this.props.shares.length > 0)) {
       newFiles.map(function(file, key) {
         if (file.metadata.sharing_info) {
         self.props.shares.map(function (folder){

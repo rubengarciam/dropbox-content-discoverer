@@ -9,7 +9,7 @@ var usersDone = 0;
 
 var dbx
 
-function populateSharingDetails(token): null {
+function populateSharingDetails(token) {
      dbx = new Dropbox({ accessToken: token })
     console.log('Getting shared folder details in memory');
     var userIndex = 0;
