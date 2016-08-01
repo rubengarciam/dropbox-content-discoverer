@@ -74,7 +74,6 @@ export class HomeView extends React.Component {
       ) } else { null }
   }
   renderAuth () {
-    TOKEN = Auth.auth()
     if (TOKEN) {
       dbx.setAccessToken(TOKEN)
       var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null
@@ -96,7 +95,7 @@ export class HomeView extends React.Component {
       )
     } else {
       // var url = dbx.getAuthenticationUrl('http://localhost:3000/')
-       var url = dbx.getAuthenticationUrl('https://dropbox-content-discoverer.herokuapp.com/')
+      var url = dbx.getAuthenticationUrl('https://dropbox-content-discoverer.herokuapp.com/')
       return (
         <div className='container text-center'>
           <a className="ui blue login button" href={url}>
@@ -108,6 +107,11 @@ export class HomeView extends React.Component {
     }
   }
   render () {
+    var newToken = Auth.parseQueryString(window.location.hash).access_token
+    if (newToken) {
+      TOKEN = newToken
+      location.href = '/#/'
+    }
     return (
       <div className='view-container'>
         <SidebarView input={this.state.input} preFilters={this.state.preFilters} postFilters={this.state.postFilters} />
