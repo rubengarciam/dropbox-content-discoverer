@@ -95,7 +95,8 @@ export class HomeView extends React.Component {
         </div>
       )
     } else {
-      var url = dbx.getAuthenticationUrl('http://localhost:3000/')
+      // var url = dbx.getAuthenticationUrl('http://localhost:3000/')
+      var url = dbx.getAuthenticationUrl('https://dropbox-search.herokuapp.com/')
       return (
         <div className='container text-center'>
           <a className="ui blue login button" href={url}>
