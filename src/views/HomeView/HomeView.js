@@ -51,10 +51,14 @@ export class HomeView extends React.Component {
   checkNames () {
     var self = this
     setTimeout(function () {
-      self.setState({
-        banner: false
-      })
-    }, 9000)
+      if ((DL.sharedFolderDetails.length > 0) && (DL.sharedFolderDetails[0].username !== 'realusername')) {
+        self.setState({
+          banner: false
+        })
+      } else {
+        self.checkNames()
+      }
+    }, 1000)
   }
   componentDidMount () {
   }
@@ -65,7 +69,7 @@ export class HomeView extends React.Component {
       return (
         <div className="ui green inverted segment">
           <i className="asterisk loading white icon"></i>
-          Results will be displayed when people's names are fetched, shouldn't take long! :)
+          Fetching people's names, shouldn't take long! :)
         </div>
       ) } else { null }
   }
@@ -74,10 +78,11 @@ export class HomeView extends React.Component {
     if (TOKEN) {
       dbx.setAccessToken(TOKEN)
       var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null
+      let inputClass = this.state.banner ? 'ui icon disabled input' : 'ui icon input'
       return (
         <div className='container text-center'>
           {this.renderBanner()}
-          <div className="ui icon input">
+          <div className={inputClass}>
             <input type="text"
               placeholder="Presentations shared by @ruben in the last week..."
               onKeyPress={this.searchFiles} />
