@@ -1,20 +1,16 @@
 :global {
   @import 'base';
   @import 'vendor/normalize';
-
-  // Some best-practice CSS that's useful for most apps
-  // Just remove them if they're not what you want
+  
   html {
     box-sizing: border-box;
   }
-
   html,
   body {
     margin: 0;
     padding: 0;
     height: 100%;
   }
-
   *,
   *:before,
   *:after {
@@ -38,7 +34,6 @@
       font-weight: 100;
       color: #647f94;
       font-size: 1.1rem;
-      //text-transform: uppercase;
     }
   }
   .container{
@@ -68,7 +63,6 @@
         color: rgb(61,60,60)
       }
       .file{
-        //font-weight: bold;
         margin-right: 10px;
         color: rgb(0,84,125)
       }
