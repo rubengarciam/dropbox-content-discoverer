@@ -78,13 +78,13 @@ function combineTerms (terms) {
 }
 
 function extractFileTypesByWord (input) {
-  var terms = input.split(" ").map(function (t) {
+  var terms = input.split(' ').map(function (t) {
     if (t.trim().length > 0) {
       return nlp.noun(t)
     }
   })
   // cleaning undefined items
-  terms = extractFileTypes(terms.filter(function(e){return e}))
+  terms = extractFileTypes(terms.filter(function (e) { return e }))
   return combineTerms(terms)
 }
 

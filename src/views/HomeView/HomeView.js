@@ -8,93 +8,89 @@ import {SidebarView} from '../SidebarView/SidebarView'
 var NLP = require('../../components/NLP')
 var Auth = require('../../components/Auth')
 var Dropbox = require('dropbox')
-var DL =  require('../../components/DropboxLib.js');
+var DL = require('../../components/DropboxLib.js')
 
-var CLIENT_ID = 'hdhsgxuttd41q5b';
-var TOKEN = null;
-var dbx = new Dropbox({ clientId: CLIENT_ID });
+var CLIENT_ID = 'hdhsgxuttd41q5b'
+var TOKEN = null
+var dbx = new Dropbox({ clientId: CLIENT_ID })
 
-type Props = {
-  counter: number,
-  doubleAsync: Function,
-  increment: Function
-};
-
-export class HomeView extends React.Component<void, Props, void> {
+export class HomeView extends React.Component {
   static propTypes = {
     counter: PropTypes.number.isRequired,
     doubleAsync: PropTypes.func.isRequired,
     increment: PropTypes.func.isRequired
-  };
-  constructor(props){
-    super(props);
-    this.searchFiles = this.searchFiles.bind(this);
-    this.state =  {
+  }
+  constructor (props) {
+    super(props)
+    this.searchFiles = this.searchFiles.bind(this)
+    this.state = {
       files: null,
       input: null,
       preFilters: null,
       postFilters: null,
       banner: true
-    };
+    }
   }
-
-  searchFiles(e){
-      var self = this;
-      let result = NLP.nlpInspect(e.target.value);
-      dbx.filesSearch({query: result.input, path: ""})
-        .then(function(response) {
-          self.setState({
-            files: response.matches,
-            input: result.input,
-            preFilters: result.pre,
-            postFilters:result.post
-          });
+  searchFiles (e) {
+    var self = this
+    let result = NLP.nlpInspect(e.target.value)
+    dbx.filesSearch({query: result.input, path: ''})
+      .then(function (response) {
+        self.setState({
+          files: response.matches,
+          input: result.input,
+          preFilters: result.pre,
+          postFilters: result.post
         })
-        .catch(function(error) {
-          console.log(error);
-          return "NO files";
-        })
+      })
+      .catch(function (error) {
+        console.log(error)
+        return null
+      })
   }
-
-  checkNames(){
-    var self = this;
-    setTimeout(function(){
+  checkNames () {
+    var self = this
+    setTimeout(function () {
       self.setState({
         banner: false
       })
-    },9000);
+    }, 9000)
   }
-
   componentDidMount () {
   }
-  renderBanner() {
-    if (this.state.banner ) {
-      DL.populateSharingDetails(TOKEN);
-      this.checkNames();
+  renderBanner () {
+    if (this.state.banner) {
+      DL.populateSharingDetails(TOKEN)
+      this.checkNames()
       return (
         <div className="ui green inverted segment">
-          <i className="asterisk loading white icon"></i> Results will be displayed when people's names are fetched, shouldn't take long! :)
+          <i className="asterisk loading white icon"></i>
+          Results will be displayed when people's names are fetched, shouldn't take long! :)
         </div>
-      )} else { null }
+      ) } else { null }
   }
-
-  renderAuth() {
-    TOKEN = Auth.auth();
+  renderAuth () {
+    TOKEN = Auth.auth()
     if (TOKEN) {
-      dbx.setAccessToken(TOKEN);
-      var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null;
+      dbx.setAccessToken(TOKEN)
+      var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null
       return (
         <div className='container text-center'>
           {this.renderBanner()}
           <div className="ui icon input">
-            <input type="text" placeholder="Presentations shared by @ruben in the last week..." onKeyPress={this.searchFiles}/>
+            <input type="text"
+              placeholder="Presentations shared by @ruben in the last week..."
+              onKeyPress={this.searchFiles} />
             <i className="search icon"></i>
           </div>
-          <ResultsView files={this.state.files} formats={formats} filters={this.state.postFilters} shares={DL.sharedFolderDetails} />
+          <ResultsView files={this.state.files}
+            formats={formats}
+            filters={this.state.postFilters}
+            shares={DL.sharedFolderDetails} />
         </div>
       )
     } else {
-      var url = dbx.getAuthenticationUrl('http://localhost:3000/');
+      var url = dbx.getAuthenticationUrl('http://localhost:3000/')
       return (
         <div className='container text-center'>
           <a className="ui blue login button" href={url}>
@@ -105,7 +101,6 @@ export class HomeView extends React.Component<void, Props, void> {
       )
     }
   }
-
   render () {
     return (
       <div className='view-container'>
