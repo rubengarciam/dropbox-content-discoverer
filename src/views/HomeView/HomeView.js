@@ -23,6 +23,11 @@ export class HomeView extends React.Component {
   constructor (props) {
     super(props)
     this.searchFiles = this.searchFiles.bind(this)
+    var newToken = Auth.parseQueryString(window.location.hash).access_token
+    if (newToken) {
+      TOKEN = newToken
+      location.href = '/#/'
+    }
     this.state = {
       files: null,
       input: null,
