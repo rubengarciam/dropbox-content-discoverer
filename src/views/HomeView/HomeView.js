@@ -72,9 +72,14 @@ export class HomeView extends React.Component {
       DL.populateSharingDetails(TOKEN)
       this.checkNames()
       return (
-        <div className="ui green inverted segment">
-          <i className="asterisk loading white icon"></i>
-          Fetching people's names, shouldn't take long! :)
+        <div className="ui icon green tiny message">
+          <i className="asterisk loading icon"></i>
+          <div className="content">
+            <div className="header">
+              Just one second
+            </div>
+            <p>We're fetching people's names, shouldn't take long! :)</p>
+          </div>
         </div>
       ) } else { null }
   }
@@ -88,8 +93,8 @@ export class HomeView extends React.Component {
           {this.renderBanner()}
           <div className={inputClass}>
             <input type="text"
-              placeholder="Presentations shared by @ruben in the last week..."
-              onKeyPress={this.searchFiles} />
+              placeholder="Presentations shared by Ruben in the last week..."
+              onChange={this.searchFiles} />
             <i className="search icon"></i>
           </div>
           <ResultsView files={this.state.files}

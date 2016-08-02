@@ -5,12 +5,16 @@ var numSharedFolders = 0
 var foldersToDo = 0
 var foldersDone = 0
 var usersDone = 0
+var fetching = false
 var dbx
 
 function populateSharingDetails (token) {
   dbx = new Dropbox({ accessToken: token })
-  console.log('Getting shared folder details in memory')
-  getSharedFolders() // triggers a bunch of sub functions
+  if (!fetching) {
+    fetching = true
+    console.log('Getting shared folder details in memory')
+    getSharedFolders() // triggers a bunch of sub functions
+  }
 }
 
 function getSharedFolders () {
@@ -77,6 +81,7 @@ function UpdateAccountIDsWithUserNames (accountid, fullname, usersToDo) {
   if (usersDone === usersToDo) {
     console.log('Done getting username matches ( ' + usersToDo + ' folders)')
     usersDone = 0
+    fetching = false
   }
 }
 
