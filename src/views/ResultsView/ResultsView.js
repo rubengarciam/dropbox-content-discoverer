@@ -149,9 +149,9 @@ export class ResultsView extends React.Component {
       })
     }
     return (
-      <div className="ui blue help message">
+      <div className="ui help message">
         <div className="header">
-          Need some inspiration?
+          Here are some example searchs you can do:
         </div>
         <ul className="list">
           <li>roadmap presentations created in the last week</li>

@@ -11,7 +11,7 @@ var Dropbox = require('dropbox')
 var DL = require('../../components/DropboxLib.js')
 
 var CLIENT_ID = 'hdhsgxuttd41q5b'
-const OAuthCallback = 'https://search-hackweek2016.dropboxtools.com/' // 'http://localhost:3000/'
+const OAuthCallback = 'http://localhost:3000/' // 'https://search-hackweek2016.dropboxtools.com/'
 var TOKEN = null
 var dbx = new Dropbox({ clientId: CLIENT_ID })
 
@@ -109,8 +109,8 @@ export class HomeView extends React.Component {
       return (
         <div className='container text-center'>
           <a className="ui blue login button" href={url}>
-            <i className="dropbox icon"></i>
-            <span className="text">Authenticate your Dropbox (we don't store anything!)</span>
+            <i className="dropbox white icon"></i>
+            <span className="text">Log in (we don't store any of your information on the server!)</span>
           </a>
         </div>
       )
