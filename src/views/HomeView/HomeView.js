@@ -9,6 +9,7 @@ var NLP = require('../../components/NLP')
 var Auth = require('../../components/Auth')
 var Dropbox = require('dropbox')
 var DL = require('../../components/DropboxLib.js')
+var ReactGA = require('react-ga')
 
 var CLIENT_ID = 'hdhsgxuttd41q5b'
 const OAuthCallback = 'https://search-hackweek2016.dropboxtools.com/'// 'http://localhost:3000/'
@@ -24,11 +25,7 @@ export class HomeView extends React.Component {
   constructor (props) {
     super(props)
     this.searchFiles = this.searchFiles.bind(this)
-    var newToken = Auth.parseQueryString(window.location.hash).access_token
-    if (newToken) {
-      TOKEN = newToken
-      location.href = '/#/'
-    }
+    ReactGA.initialize('UA-81802260-1')
     this.state = {
       files: null,
       input: null,
@@ -122,6 +119,8 @@ export class HomeView extends React.Component {
       TOKEN = newToken
       location.href = '/#/'
     }
+    ReactGA.set({ page: window.location.pathname })
+    ReactGA.pageview(window.location.pathname)
     return (
       <div className='view-container'>
         <SidebarView input={this.state.input} preFilters={this.state.preFilters} postFilters={this.state.postFilters} />
