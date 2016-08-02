@@ -148,6 +148,20 @@ export class ResultsView extends React.Component {
         return (item.metadata['.tag'] === 'folder') ? self.renderFolder(item, key) : self.renderFile(item, key)
       })
     }
+    return (
+      <div className="ui blue help message">
+        <div className="header">
+          Need some inspiration?
+        </div>
+        <ul className="list">
+          <li>roadmap presentations created in the last week</li>
+          <li>all hands videos from 6 months ago</li>
+          <li>discount spreadsheet</li>
+          <li>marketing videos and pdfs about construction</li>
+          <li>ABC presentations shared by daniel</li>
+        </ul>
+      </div>
+    )
   }
   transformSharedNames () {
     var newFiles = this.props.files

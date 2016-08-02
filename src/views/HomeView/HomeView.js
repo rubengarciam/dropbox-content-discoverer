@@ -87,7 +87,7 @@ export class HomeView extends React.Component {
     if (TOKEN) {
       dbx.setAccessToken(TOKEN)
       var formats = (this.state.preFilters && this.state.preFilters.fileTypes) ? this.state.preFilters.fileTypes : null
-      let inputClass = this.state.banner ? 'ui icon disabled input' : 'ui icon input'
+      let inputClass = this.state.banner ? 'ui icon disabled fluid input' : 'ui icon fluid input'
       return (
         <div className='container text-center'>
           {this.renderBanner()}

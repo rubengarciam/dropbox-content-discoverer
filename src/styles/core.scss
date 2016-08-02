@@ -51,13 +51,21 @@
   .ui.input{
     margin-top: 5rem;
     margin-bottom: 2rem;
-    width: 600px;
+    //width: 600px;
   }
   label > i.folder {
     color: rgb(168,167,167)
   }
   .ui.feed > .event {
     margin-bottom: 20px;
+  }
+  .ui.feed > .help.message{
+    margin-top: 100px;
+    box-shadow: none;
+    .header {
+      text-align: left;
+      margin-bottom: 10px;
+    }
   }
   .ui.feed > .event > .content{
     .summary{
