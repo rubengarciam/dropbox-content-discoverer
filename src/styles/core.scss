@@ -39,6 +39,10 @@
   .container{
     padding-top: 70px;
     width: 700px;
+    .ui.green.tiny.message{
+      //width: 400px;
+      //text-align: left;
+    }
     .ui.blue.login.button{
       margin-top: 10rem;
       font-weight: 100;
