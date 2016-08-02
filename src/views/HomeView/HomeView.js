@@ -11,7 +11,7 @@ var Dropbox = require('dropbox')
 var DL = require('../../components/DropboxLib.js')
 
 var CLIENT_ID = 'hdhsgxuttd41q5b'
-const OAuthCallback = 'http://localhost:3000/' // 'https://search-hackweek2016.dropboxtools.com/'
+const OAuthCallback = 'https://search-hackweek2016.dropboxtools.com/'// 'http://localhost:3000/'
 var TOKEN = null
 var dbx = new Dropbox({ clientId: CLIENT_ID })
 
